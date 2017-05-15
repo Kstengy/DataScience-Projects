@@ -1,0 +1,39 @@
+#This file shows the answers to the Aggregates and groups drills
+
+# Q1 - What was the hottest day? Where was that?
+SELECT
+	MaxTemperatureF as Temp,
+	Date,
+	ZIP
+FROM
+	weather
+ORDER BY
+	MaxTemperatureF DESC
+LIMIT 1
+
+# Q2 - How many trips started at each station?
+SELECT
+	COUNT(trip_id) as Trips,
+	start_station as Station
+FROM
+	trips
+GROUP BY
+	start_station
+ORDER BY
+		COUNT(trip_id) DESC
+
+# Q3 - What's the shortest trip that happened?
+SELECT
+	trip_id as Trip_Number,
+	MIN(duration) as Duration
+FROM
+	trips
+
+# Q4 - What is the average trip duration, by end station?
+SELECT
+	end_station,
+	AVG(duration)
+FROM
+	trips
+GROUP BY
+	end_station
