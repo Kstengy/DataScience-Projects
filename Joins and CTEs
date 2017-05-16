@@ -23,7 +23,66 @@ On
 Order by duration DESC
 LIMIT 3
 
-Q2 - What is the average number of open docks in each station on days where it is raining in that zip code?
+Q2 - What is the average number of open docks in each station on days where it is raining in that zip code?(this fucker took a while)
+With
+	zip_ids
+AS (
+Select
+	stations.station_id,
+	trips.zip_code
+From
+	trips
+Join
+	stations
+On
+	stations.name = trips.start_station
+Where length(zip_code) = 5
+Group By
+	station_id
+Order By
+	zip_code
+),
+
+	dock_day_zips
+AS (
+	SELECT
+		avg(status.docks_available) as 'Docks_Available',
+		DATE(status.timestamp) as 'Days',
+		zip_ids.zip_code
+	From
+		status
+	Join
+		zip_ids
+	On
+		status.station_id = zip_ids.station_id
+	Group By
+		DATE(status.timestamp),
+		zip_ids.zip_code
+),
+
+	rainy_days
+AS (
+Select
+	weather.Date as 'rainy_day',
+	weather.ZIP as 'Zip'
+From
+	weather
+Where
+	PrecipitationIn != 0
+)
+
+Select
+	rainy_days.rainy_day,
+	rainy_days.Zip,
+	dock_day_zips.Docks_Available
+From
+	rainy_days
+Join
+	dock_day_zips
+On
+	rainy_days.rainy_day = dock_day_zips.Days
+Group By 
+	rainy_days.rainy_day
 
 
 Q3 - What station is empty most often?
