@@ -1,0 +1,44 @@
+#These are the answers to the Joins and CTEs drills
+
+Q1 - What are the three longest trips on rainy days?
+With
+	rainy_days
+As (
+	Select
+		Date
+	From
+		weather
+	Where PrecipitationIn != 0
+	Group By 1
+)
+select
+	date(trips.start_date) as tDate,
+	trips.duration
+From
+	trips
+Join
+	rainy_days
+On
+	tDate = rainy_days.Date
+Order by duration DESC
+LIMIT 3
+
+Q2 - What is the average number of open docks in each station on days where it is raining in that zip code?
+
+
+Q3 - What station is empty most often?
+SELECT
+	stations.name AS 'Station Name',
+	count(status.bikes_available) AS 'Times Empty'
+FROM
+	stations
+JOIN
+	status
+ON
+	stations.station_id = status.station_id
+WHERE
+	status.bikes_available = 0
+GROUP BY 
+	stations.station_id
+ORDER BY 
+	count(status.bikes_available) DESC
