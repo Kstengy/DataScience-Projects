@@ -1,0 +1,41 @@
+These are the answers to the Airbnb challenge
+
+Q1 - What's the most expensive listing? What else can you tell me about the listing?
+a1 - the most expensive 1 night listing is a 1 bedroom townhouse in the Gold Coast. Having lived in Chi for 5 years I can confirm this 
+makes a lot of sense.
+
+a2 - the most expensive weekly rental is a 3 bedroom apartment that holds up to 7. It is in greektown.
+
+<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+
+Q2 - What neighborhoods seem to be the most popular?
+a1 - There are two ways to look at this question, the first is just seeing how many listings by neighborhood which would be
+Select
+	listings.neighbourhood_cleansed as 'Neighborhood',
+	count(listings.neighbourhood_cleansed) as 'No. of listings'
+From
+	listings
+group by
+	listings.neighbourhood_cleansed
+order by
+	count(listings.neighbourhood_cleansed) Desc
+  
+a2 - I also thought, however, that you could see what locations had the most reviews(by neighborhood) indicating how many people have
+stayed there rather than just how many listings are available. This however leads to the same top 5 neighborhoods. In an effort to see
+what the most reviewed neighborhoods were like I pulled the average score of the most often reviewed neighborhoods.
+Select
+	listings.neighbourhood_cleansed as 'Neighborhood',
+	Count(listings.number_of_reviews) as 'Review counts',
+	Avg(listings.review_scores_rating) as 'Avg score of reviews'
+From
+	listings
+Where 
+	listings.review_scores_rating not null
+group by
+	listings.neighbourhood_cleansed
+order by
+	Count(listings.number_of_reviews) Desc
+  
+<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+
+Q3 - What time of year is the cheapest time to go to your city? What about the busiest?
