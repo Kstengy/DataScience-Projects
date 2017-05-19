@@ -39,3 +39,15 @@ order by
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
 Q3 - What time of year is the cheapest time to go to your city? What about the busiest?
+a1 The most expensive time to visit is in October
+Select	
+	strftime('%m', calendar.date) as 'Monat',
+	Avg(calendar.price)
+From
+	calendar
+Where
+	length(calendar.price) > 1
+group by
+	strftime('%m', calendar.date)
+
+a2 Not sure on this second part
