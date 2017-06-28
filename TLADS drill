@@ -1,0 +1,9 @@
+Cntry - Ordinal(although it doesn't give rank, it does allow for classification
+idno - Ordinal(a unique number for each participant. idno 4 isn't necessarily before 5 but it does provide the ability to order the respondents
+year - Interval, there is the same time between each year and you are able to order respondents based on their year
+tvtot : sclact - all of these are interval, they are not ratio since a 4 in tvtot doesn't correspond to 4 hours watched and cannot therefore be said to be twice as much as a 2
+gndr - Ordinal
+age - Ratio
+partner - Ordinal
+
+
